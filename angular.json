@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "frontend-tienda-videojuegos-meang"
+    }
+  },
+  "defaultProject": "frontend-tienda-videojuegos-meang",
+  "cli": {
+    "analytics": false
+  }
 }
