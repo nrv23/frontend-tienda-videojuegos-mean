@@ -1,0 +1,11 @@
+
+para mantener componentes y conjuntos de rutas separadas siempre se debe crear cada componente
+con su archivo de modulo y modulo routing primero 
+y luego crear el componente
+
+
+De esa forma tambien es facil utilizar lazy loading en los componentes.
+
+Cada router outlet es propio del archivo routing que se maneje por modulo y se que agregue al app.module
+
+por lo que se puede separar conjuntos de rutas como subrutas de una ruta principal
