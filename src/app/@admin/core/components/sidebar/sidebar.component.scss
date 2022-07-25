@@ -1,0 +1,18 @@
+@import "./../../../pages//admin.component.scss";
+
+#refPrincipal {
+    text-decoration: none;
+}
+
+#sidebar-wrapper {
+    background-color: $admin-primary-color;
+}
+
+.sidebar-heading a {
+    color: whitesmoke;
+}
+
+.sidebar-heading a:hover {
+    color: whitesmoke;
+    text-decoration: underline;
+}
