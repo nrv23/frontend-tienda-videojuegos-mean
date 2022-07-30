@@ -13,7 +13,7 @@ const routes: Routes = [
         loadChildren: async () => await (await import("./contact/contact.module")).ContactModule // cargar rutas con lazy loading
       },
       {
-        path: "home",
+        path: "",
         loadChildren: async () => await (await import("./home/home.module")).HomeModule // cargar rutas con lazy loading
       },
     ]
