@@ -12,3 +12,5 @@ por lo que se puede separar conjuntos de rutas como subrutas de una ruta princip
 
 el decorador @Output envia datos de un componente hijo a un componente padre, se crea un event emitter, se carga con una funcion 
 en el componente hijo y esa funcion se debe crear en el componente padre para que lea los datos
+
+npm version minor, con ese comando se versiona el proyecto y automaticamente se crean tags que se suben a github
