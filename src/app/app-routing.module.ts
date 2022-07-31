@@ -18,9 +18,11 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    useHash: true, // evitar que el navegador recargue la pagina
+    useHash: true,
     scrollPositionRestoration: "enabled" // mostrar el scroll arriba cuando una pagina se carga
-  })],
+    ,
+    relativeLinkResolution: 'legacy'
+})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

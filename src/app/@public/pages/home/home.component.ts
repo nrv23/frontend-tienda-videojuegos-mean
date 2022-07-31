@@ -1,4 +1,4 @@
-import { UserService } from './../../../services/user.service';
+import { UserService } from '../../../@core/services/auth/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,11 +11,20 @@ export class HomeComponent implements OnInit {
   constructor(private user: UserService) { }
 
   ngOnInit(): void {
+    console.log("cargando")
+    this.user.login("nrv2391@gmail.com","hola1234")
+    .subscribe(response => {
+     
+    },err => {
+      console.log(err);
+    })
 
-    this.user.login("nrv2391@gmail.com","123456")
+    this.user.getMe()
       .subscribe(response => {
-        console.log(response);
+        console.log(response.me);
+      }, err => {
+        console.log(err.message);
       })
-  }
 
+  }
 }

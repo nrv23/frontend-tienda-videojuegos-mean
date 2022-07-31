@@ -8,9 +8,11 @@ export const USER_FRAGMENT = gql`
       name
       lastName
       email
-      password
+      password @include(if:$include)
       role
-      registerDate
-      birthDate
-  }
+      registerDate @include(if:$include)
+      birthDate @include(if:$include)
+  } 
 `;
+
+// @include directiva para incluir o no un campo en el query

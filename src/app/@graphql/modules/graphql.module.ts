@@ -27,15 +27,8 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     }
   });
 
-  const http = ApolloLink.from([errorLink, httpLink.create({ uri })]); // pasar la instancia de error y conexion
-  const link = split(
-    // split based on operation type
-    ({ query }) => {
-      const { kind, operation }: any = getMainDefinition(query);
-      return kind === 'OperationDefinition' && operation === 'subscription';
-    },
-    http
-  );
+  const link = ApolloLink.from([errorLink, httpLink.create({ uri })]); // pasar la instancia de error y conexion
+  
 
   return {
     link,

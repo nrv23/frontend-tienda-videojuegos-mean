@@ -9,6 +9,14 @@ const routes: Routes = [
     component: PublicComponent, // este componente tiene cargado el router-outlet para poder navegar 
     children: [
       {
+        path: "login",
+        loadChildren: async () => await (await import("./forms/login/login.module")).LoginModule // cargar rutas con lazy loading
+      },
+      {
+        path: "register",
+        loadChildren: async () => await (await import("./forms/register/register.module")).RegisterModule // cargar rutas con lazy loading
+      },
+      {
         path: "contact",
         loadChildren: async () => await (await import("./contact/contact.module")).ContactModule // cargar rutas con lazy loading
       },

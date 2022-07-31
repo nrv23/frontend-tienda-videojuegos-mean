@@ -15,9 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     AdminModule,
     PublicModule,
+    HttpClientModule,
     GraphQLModule,
     AppRoutingModule // este routing ssiempre se va añaidir como ultimo
   ],
