@@ -1,1 +1,69 @@
-<p>login works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg"></div>
+        <div class="col-lg-6">
+            <form (ngSubmit)="login($event)" #forma="ngForm">
+                <h1>Inicio de sesión</h1>
+                <p>Introduzca los credenciales para iniciar la sesión</p>
+                <p class="psw">
+                    ¿No tienes cuenta? Entra
+                    <a [routerLink]="['/register']">aquí</a> para crearla gratis
+                </p>
+                <hr />
+                <label for="email"><b>Correo electrónico</b></label>
+                <!-- 
+                #email="ngModel"  
+                    Habilitar el forms de angular para leer la variable del componente que va cargar los datos del formuario
+                [(ngModel)]="loginForm.email"
+                type="email"
+                Asignar el campo a la propiedad que va leer el valor de ese campo de forma bidireccional, la variable debe tener el mismo nombre
+                que la propiedad name del campo para poder hacer match y leer esos valores
+            -->
+                <input 
+                    #email="ngModel" 
+                    [(ngModel)]="loginForm.email" 
+                    type="email"
+                    placeholder="Introduzca la correo electrónico" 
+                    name="email"
+                    class="form-control"
+                    pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+                    required 
+                    [ngClass]="{'is-valid':!email.invalid,'is-invalid':email.invalid}" 
+                />
+                
+                <div *ngIf="(email.invalid && (email.dirty || email.touched)) || email.errors?.required || email.errors?.pattern"
+                    class=" alert alert-danger mt-2">
+                    Correo inválido
+                </div>
+
+                <label for="password"><b>Contraseña</b></label>
+                <input 
+                    #password="ngModel" 
+                    [(ngModel)]="loginForm.password" 
+                    type="password"
+                    placeholder="Introduzca la contraseña" 
+                    name="password" 
+                    class="form-control"
+                    required
+                    [ngClass]="{'is-valid':!password.invalid,'is-invalid':password.invalid}" 
+                />
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class=" alert alert-danger mt-2">
+                    Password inválido
+                </div>
+
+                <div class="row">
+                    <div class="col-lg">
+                        <button type="submit" class="signup-btn" [disabled]="!forma.valid">Iniciar sesión</button>
+                    </div>
+                </div>
+                <div class="more-options">
+                    <p class="psw">
+                        ¿Has olvidado la <a [routerLink]="['/forgot']">contraseña?</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg"></div>
+    </div>
+</div>
