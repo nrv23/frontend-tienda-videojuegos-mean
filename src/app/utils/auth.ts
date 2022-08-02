@@ -18,7 +18,6 @@ export class AuthHelper {
     }
 
     expiredSession() {
-        console.log(this.jwtHelper)
         return this.jwtHelper.isTokenExpired(this.getToken());
     }
 

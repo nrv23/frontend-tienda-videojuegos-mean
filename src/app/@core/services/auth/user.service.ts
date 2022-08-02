@@ -12,6 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { REGISTER } from 'src/app/@graphql/operations/mutation/register';
 import { AuthHelper } from 'src/app/utils/auth';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,46 @@ export class UserService extends ApiService{
     super(apollo)
    }
    private helper: AuthHelper = new AuthHelper();
+
+
+    accessVar= new Subject<IMe>() ;
+    accessVar$ = this.accessVar.asObservable(); // aqui escucha los cambios
+    
+    updateSession(data: IMe) {
+      this.accessVar.next(data);  
+    }
+
+    start() {
+      let meData: IMe = {
+        me: {
+          status: null,
+          message: "" ,
+          users: null
+        }
+      }
+      if(!this.helper.expiredSession()){
+        this.getMe()
+          .subscribe(response => {
+            if(!response.me.status) {
+              this.helper.removeToken();
+              this.updateSession(meData);
+              return;
+
+            } else {
+
+              this.updateSession(response);
+              return;
+            }
+          }, err => {
+            this.updateSession(meData)
+            this.helper.removeToken();
+            throw err;
+          })
+      } else {
+        this.updateSession(meData)
+        this.helper.removeToken();
+      }
+     }
 
     login(email: string, password: string)  {
       console.log({
