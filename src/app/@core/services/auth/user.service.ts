@@ -11,6 +11,7 @@ import { ME } from '../../../@graphql/operations/query/me';
 import { HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { REGISTER } from 'src/app/@graphql/operations/mutation/register';
+import { AuthHelper } from 'src/app/utils/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,13 @@ export class UserService extends ApiService{
   constructor(apollo: Apollo) {
     super(apollo)
    }
+   private helper: AuthHelper = new AuthHelper();
 
     login(email: string, password: string)  {
+      console.log({
+        email,
+        password
+      })
      return this.query(LOGIN,{email,password,include:false}).pipe(
        map(response => {
          return response as ILogin
@@ -32,7 +38,7 @@ export class UserService extends ApiService{
     getMe() {
       return this.query(ME,{include:false},{ 
         headers: new HttpHeaders()
-        .set("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYyZTBjMjUwYTIzOGU1OTE3YTNiODc4ZiIsImlkIjoxLCJlbWFpbCI6Im5ydjIzOTFAZ21haWwuY29tIiwibmFtZSI6Ik5hdGFuaWVsIiwibGFzdE5hbWUiOiJWZW5lZ2FzIiwicm9sZSI6IkNMSUVOVCIsImJpcnRoRGF0ZSI6IjIzLTExLTE5OTEiLCJyZWdpc3RlckRhdGUiOiIyMDIyLTA3LTI3VDA0OjQyOjU2LjE0M1oifSwiaWF0IjoxNjU5MjM2MDAzLCJleHAiOjE2NTkyMzk2MDN9.UVb-hMJK1Fm6WuFmDKqRcThG8BRBIJh-be8odK1EZUg") })
+        .set("Authorization", this.helper.getToken()) })
         .pipe(
           map(response => response as IMe)
         )
