@@ -21,7 +21,7 @@ export class UserService extends ApiService{
   constructor(apollo: Apollo) {
     super(apollo)
    }
-   private helper: AuthHelper;
+   private helper: AuthHelper = new AuthHelper();
 
     login(email: string, password: string)  {
       console.log({

@@ -5,7 +5,7 @@ export class AuthHelper {
     constructor() {
 
     }
-    private jwtHelper: JwtHelperService;
+    private jwtHelper: JwtHelperService = new JwtHelperService();
 
     saveToken(token:string) {
 
@@ -18,7 +18,7 @@ export class AuthHelper {
     }
 
     expiredSession() {
-
+        console.log(this.jwtHelper)
         return this.jwtHelper.isTokenExpired(this.getToken());
     }
 

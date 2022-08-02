@@ -1,8 +1,8 @@
 import { LoginForm } from '../../../../interface/LoginForm';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/@core/services/auth/user.service';
-import { AuthHelper } from 'src/app/utils/auth';
 import { basicAlert } from 'src/app/@shared/alerts/toast';
+import { AuthHelper } from 'src/app/utils/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,20 +11,23 @@ import { basicAlert } from 'src/app/@shared/alerts/toast';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+    
+  constructor(private userService: UserService) {
+  
+   }
+  private helper: AuthHelper =  new AuthHelper();
 
   loginForm: LoginForm = {
     email: "",
     password: ""
   };
 
-  private helper: AuthHelper = new AuthHelper();
-
   ngOnInit(): void {
     
-    if(this.helper.expiredSession()) {
-      //devolver a login
+    if(!this.helper.expiredSession()) {
+      console.log("No está expirada")
     } else {
+      console.log(" está expirada")
 
     }
   }
