@@ -13,6 +13,7 @@ import { User } from 'src/app/models/user.model';
 import { REGISTER } from 'src/app/@graphql/operations/mutation/register';
 import { AuthHelper } from 'src/app/utils/auth';
 import { Subject } from 'rxjs';
+import { IRegisterResponse } from 'src/app/interface/RegisterResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,13 @@ export class UserService extends ApiService{
    }
    private helper: AuthHelper = new AuthHelper();
 
+   private meData: IMe = {
+    me: {
+      status: null,
+      message: "" ,
+      users: []
+    }
+  }
 
     accessVar= new Subject<IMe>() ;
     accessVar$ = this.accessVar.asObservable(); // aqui escucha los cambios
@@ -33,19 +41,13 @@ export class UserService extends ApiService{
     }
 
     start() {
-      let meData: IMe = {
-        me: {
-          status: null,
-          message: "" ,
-          users: null
-        }
-      }
+      
       if(!this.helper.expiredSession()){
         this.getMe()
           .subscribe(response => {
             if(!response.me.status) {
               this.helper.removeToken();
-              this.updateSession(meData);
+              this.updateSession(this.meData);
               return;
 
             } else {
@@ -54,12 +56,12 @@ export class UserService extends ApiService{
               return;
             }
           }, err => {
-            this.updateSession(meData)
+            this.updateSession(this.meData)
             this.helper.removeToken();
             throw err;
           })
       } else {
-        this.updateSession(meData)
+        this.updateSession(this.meData)
         this.helper.removeToken();
       }
      }
@@ -93,11 +95,20 @@ export class UserService extends ApiService{
     }
 
     register(user: User) {
-      this.mutation(REGISTER,{user})
+
+      delete user.confirm_password;
+      delete user.role;
+   
+      return this.mutation(REGISTER,{user})
       .pipe(
         map(
-          response => response as string
+          response => response as IRegisterResponse
         )
       )
+    }
+
+    resetSession() {
+      this.helper.removeToken();
+      this.updateSession(this.meData)
     }
 }

@@ -1,12 +1,14 @@
-import Swal,{SweetAlertIcon} from "sweetalert2";
+import Swal,{SweetAlertIcon,SweetAlertArrayOptions} from "sweetalert2";
 
 export const basicAlert =  (icon: SweetAlertIcon = "success", title: string, text: string, confirmButtonText: string,toast: boolean = true) => {
     Swal.fire({
         icon,
         title,
         text,
-        confirmButtonText ,
+        showConfirmButton: false,
         toast,
-        position: "top"
+        position: "top",
+        timer: 3000,
+        timerProgressBar: true
     })
 };

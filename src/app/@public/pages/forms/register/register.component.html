@@ -1,1 +1,161 @@
-<p>register works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg"></div>
+    <div class="col-lg-6">
+      <form (ngSubmit)="add($event)" #forma="ngForm">
+        <h1>Registro de usuario</h1>
+        <p>
+          Rellena los datos del formulario para efectuar el registro de tu
+          cuenta de usuario.
+        </p>
+        <hr />
+        <label for="name"><b>Nombre</b></label>
+        <input
+          class="form-control"
+          #name="ngModel"
+          [(ngModel)]="register.name"
+          type="text"
+          placeholder="Ingrese un nombre"
+          name="name"
+          required
+          [ngClass]="{ 'is-valid': !name.invalid, 'is-invalid': name.invalid }"
+        />
+        <div
+          *ngIf="
+            (name.invalid && (name.dirty || name.touched)) ||
+            name.errors?.required ||
+            name.errors?.pattern
+          "
+          class="alert alert-danger mt-2"
+        >
+          Nombre inválido
+        </div>
+
+        <label for="lastName"><b>Apellidos</b></label>
+        <input
+          class="form-control"
+          #lastName="ngModel"
+          [(ngModel)]="register.lastName"
+          type="text"
+          placeholder="Ingrese apellidos"
+          name="lastName"
+          required
+          [ngClass]="{
+            'is-valid': !lastName.invalid,
+            'is-invalid': lastName.invalid
+          }"
+        />
+
+        <div
+          *ngIf="
+            (lastName.invalid && (lastName.dirty || lastName.touched)) ||
+            lastName.errors?.required ||
+            lastName.errors?.pattern
+          "
+          class="alert alert-danger mt-2"
+        >
+          Apellidos inválido
+        </div>
+
+        <label for="birthDate"><b>Fecha Nacimiento</b></label>
+        <app-date-picker-legal-age
+          (datePickerData)="dateAsign($event)"
+        ></app-date-picker-legal-age>
+
+        <label for="email"><b>Email</b></label>
+        <input
+          class="form-control"
+          #email="ngModel"
+          [(ngModel)]="register.email"
+          type="email"
+          placeholder="Ingrese un correo"
+          name="email"
+          pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+          required
+          [ngClass]="{
+            'is-valid': !email.invalid,
+            'is-invalid': email.invalid
+          }"
+        />
+
+        <div
+          *ngIf="
+            (email.invalid && (email.dirty || email.touched)) ||
+            email.errors?.required ||
+            email.errors?.pattern
+          "
+          class="alert alert-danger mt-2"
+        >
+          Correo inválido
+        </div>
+
+        <label for="password"><b>Password</b></label>
+        <input
+          class="form-control"
+          #password="ngModel"
+          [(ngModel)]="register.password"
+          type="password"
+          placeholder="Ingrese un password"
+          name="password"
+          required
+          [ngClass]="{
+            'is-valid': !password.invalid,
+            'is-invalid': password.invalid
+          }"
+        />
+
+        <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-danger mt-2"
+        >
+          Password inválido
+        </div>
+
+        <label for="confirm_password"><b>Confirm Password</b></label>
+        <input
+          class="form-control"
+          #confirm_password="ngModel"
+          [(ngModel)]="register.confirm_password"
+          type="password"
+          placeholder="Confirmar el password"
+          name="confirm_password"
+          required
+          [ngClass]="{
+            'is-valid': !confirm_password.invalid,
+            'is-invalid': confirm_password.invalid
+          }"
+        />
+
+        <div
+          *ngIf="
+            confirm_password.invalid &&
+            (confirm_password.dirty || confirm_password.touched)
+          "
+          class="alert alert-danger mt-2"
+        >
+          Confirmación inválida
+        </div>
+
+        <p>
+          By creating an account you agree to our
+          <a href="#" style="color: dodgerblue">Terms & Privacy</a>.
+        </p>
+        <p>
+          ¿Ya tiene una cuenta?
+          <a [routerLink]="['/login']" style="color: dodgerblue"
+            >Iniciar sesión</a
+          >.
+        </p>
+        <div class="row">
+          <div class="col-lg">
+            <button type="submit" class="signup-btn" [disabled]="forma.invalid">
+              Registrarse
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg"></div>
+  </div>
+</div>

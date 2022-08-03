@@ -1,5 +1,4 @@
 import { UserService } from 'src/app/@core/services/auth/user.service';
-import { LoginComponent } from './../../../pages/forms/login/login.component';
 import { Component, OnInit } from '@angular/core';
 import { IMe } from 'src/app/interface/MeResponse';
 
@@ -14,16 +13,31 @@ export class NavbarComponent implements OnInit {
   session: IMe;
   access= false;
   role:string;
+  name: string;
 
   ngOnInit(): void {
-    console.log("carga 2")
 
     this.user.accessVar$.subscribe(response => {
-      console.log(response);
 
+      const { me: {users:[{name,lastName,role}],status} } = response;
+      
       this.session = response;
-      this.access = response.me.status;
+      this.access = status;
+      this.role = role;
+      this.name = `${name} ${lastName}`;
     })
+  }
+
+
+  logout() {
+    
+    this.user.resetSession();
+
+    this.session = null;
+    this.access = false;
+    this.role = "";
+    this.name = "";
+  
   }
 
 }

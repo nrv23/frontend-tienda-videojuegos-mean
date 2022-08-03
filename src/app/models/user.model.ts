@@ -1,15 +1,16 @@
 export class User {
 
-    protected id: number;
-    protected name: string;
-    protected lastName: string;
-    protected email: string;
-    protected password:string;
-    protected role?:string = "CLIENT";
-    protected birthDate? :string;
-    protected registerDate? :string;
+    public id?: number;
+    public name: string;
+    public lastName: string;
+    public email: string;
+    public password:string;
+    public confirm_password:string;
+    public role?:string = "CLIENT";
+    public birthDate? :string;
 
-    constructor(id: number , name: string, lastName: string, email: string, password: string, role?:string, birthDate?: string, registerDate?: string ) {
+
+    constructor( name: string, lastName: string, email: string, password: string, role?:string, birthDate?: string,confirm_password?: string,id: number = null  ) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -18,6 +19,6 @@ export class User {
         this.role = role;
         this.email = email;
         this.birthDate = birthDate;
-        this.registerDate = registerDate;
+        this.confirm_password = confirm_password;
     }
 }
