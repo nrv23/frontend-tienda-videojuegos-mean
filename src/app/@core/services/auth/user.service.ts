@@ -12,6 +12,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { REGISTER } from 'src/app/@graphql/operations/mutation/register';
 import { AuthHelper } from 'src/app/utils/auth';
+import { Subject } from 'rxjs';
+import { IRegisterResponse } from 'src/app/interface/RegisterResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,47 @@ export class UserService extends ApiService{
     super(apollo)
    }
    private helper: AuthHelper = new AuthHelper();
+
+   private meData: IMe = {
+    me: {
+      status: null,
+      message: "" ,
+      users: []
+    }
+  }
+
+    accessVar= new Subject<IMe>() ;
+    accessVar$ = this.accessVar.asObservable(); // aqui escucha los cambios
+    
+    updateSession(data: IMe) {
+      this.accessVar.next(data);  
+    }
+
+    start() {
+      
+      if(!this.helper.expiredSession()){
+        this.getMe()
+          .subscribe(response => {
+            if(!response.me.status) {
+              this.helper.removeToken();
+              this.updateSession(this.meData);
+              return;
+
+            } else {
+
+              this.updateSession(response);
+              return;
+            }
+          }, err => {
+            this.updateSession(this.meData)
+            this.helper.removeToken();
+            throw err;
+          })
+      } else {
+        this.updateSession(this.meData)
+        this.helper.removeToken();
+      }
+     }
 
     login(email: string, password: string)  {
       console.log({
@@ -52,11 +95,20 @@ export class UserService extends ApiService{
     }
 
     register(user: User) {
-      this.mutation(REGISTER,{user})
+
+      delete user.confirm_password;
+      delete user.role;
+   
+      return this.mutation(REGISTER,{user})
       .pipe(
         map(
-          response => response as string
+          response => response as IRegisterResponse
         )
       )
+    }
+
+    resetSession() {
+      this.helper.removeToken();
+      this.updateSession(this.meData)
     }
 }

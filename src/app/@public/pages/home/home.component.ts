@@ -11,20 +11,6 @@ export class HomeComponent implements OnInit {
   constructor(private user: UserService) { }
 
   ngOnInit(): void {
-    console.log("cargando")
-    this.user.login("nrv2391@gmail.com","hola1234")
-    .subscribe(response => {
-     
-    },err => {
-      console.log(err);
-    })
-
-    this.user.getMe()
-      .subscribe(response => {
-        console.log(response.me);
-      }, err => {
-        console.log(err.message);
-      })
-
+    
   }
 }

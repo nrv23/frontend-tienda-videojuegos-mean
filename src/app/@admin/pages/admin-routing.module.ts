@@ -1,9 +1,11 @@
 import { AdminComponent } from './admin.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminGuard } from 'src/app/@core/guards/admin.guard';
 
 const routes: Routes = [{
   path: "admin", component: AdminComponent,
+  canActivateChild: [AdminGuard],
   // configurar rutas hijas de una ruta principal
   // concatenar la ruta base más el nombre de la subruta
   children: [

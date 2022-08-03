@@ -18,11 +18,15 @@ export class AuthHelper {
     }
 
     expiredSession() {
-        console.log(this.jwtHelper)
         return this.jwtHelper.isTokenExpired(this.getToken());
     }
 
     removeToken() {
         localStorage.removeItem("token");
+    }
+
+    decodeToken() {
+
+        return this.jwtHelper.decodeToken(this.getToken());
     }
 }
