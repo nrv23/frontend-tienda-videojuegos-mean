@@ -17,6 +17,10 @@ const routes: Routes = [{
       path: "users", // las subrutas no deben llevar /
       loadChildren: async () => await (await import("./../pages/users/users.module")).UsersModule // cargar rutas con lazy loading
     },
+    {
+      path: "genres", // las subrutas no deben llevar /
+      loadChildren: async () => await (await import("./../pages/genres/genres.module")).GenresModule // cargar rutas con lazy loading
+    },
   ]
 }];
 
