@@ -1,3 +1,4 @@
+import { TablePaginationModule } from './../../../@shared/table-pagination/table-pagination.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,8 @@ import { UsersComponent } from './users.component';
   declarations: [UsersComponent],
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    TablePaginationModule // se importa el modulo para usar el componente, pero se debe exportarel componente para poder usarse
   ]
 })
 export class UsersModule { }

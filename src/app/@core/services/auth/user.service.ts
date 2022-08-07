@@ -1,4 +1,4 @@
-import { IUsers } from './../../../interface/IUsers';
+import { IUsersResponse } from './../../../interface/UsersResponse';
 import { USERS } from './../../../@graphql/operations/query/users';
 import { IMe } from '../../../interface/MeResponse';
 import { ILogin } from '../../../interface/LoginResponse';
@@ -23,15 +23,15 @@ export class UserService extends ApiService{
   constructor(apollo: Apollo) {
     super(apollo)
    }
-   private helper: AuthHelper = new AuthHelper();
+    private helper: AuthHelper = new AuthHelper();
 
-   private meData: IMe = {
-    me: {
-      status: null,
-      message: "" ,
-      users: []
+    private meData: IMe = {
+      me: {
+        status: null,
+        message: "" ,
+        users: []
+      }
     }
-  }
 
     accessVar= new Subject<IMe>() ;
     accessVar$ = this.accessVar.asObservable(); // aqui escucha los cambios
@@ -87,10 +87,10 @@ export class UserService extends ApiService{
         )
     }
 
-    getUsers() {
-      return this.query(USERS,{include:true})
+    getUsers(page: number = 1, items:number = 20) {
+      return this.query(USERS,{include:true,page,items})
         .pipe(map(
-          result => result as IUsers
+          result => result as IUsersResponse
         ))    
     }
 
