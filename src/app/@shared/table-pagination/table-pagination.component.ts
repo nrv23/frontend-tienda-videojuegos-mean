@@ -3,7 +3,7 @@ import { ResultInfo, IResultData } from './../../interface/ResultInfo';
 import { USERS } from './../../@graphql/operations/query/users';
 import { TablePaginationService } from './table-pagination.service';
 import { DocumentNode } from '@apollo/client';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { map } from 'rxjs/internal/operators/map';
 import { Observable } from 'rxjs';
 
@@ -26,6 +26,10 @@ export class TablePaginationComponent implements OnInit {
 
   infoPage: ResultInfo;
   data$: Observable<any>; // se va trabajar paginando muchos tipos de datos
+
+  // output para enviar los datos a cada padre
+
+  @Output() manageItem = new EventEmitter<Array<any>>(); // esto va enviar datos de muchos tipos
 
   constructor(private tablePaginationService: TablePaginationService) {
 
@@ -62,6 +66,12 @@ export class TablePaginationComponent implements OnInit {
 
   pageChange(event: Event) {
     this.loadData()
+  }
+
+  manageOption(action: string, data: any) { // administrar las acciones del modulo
+    console.log(action,data)
+
+    this.manageItem.emit([action,data]); // se emite al componente padre
   }
 
   ngOnInit(): void {

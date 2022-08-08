@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
 
     this.include = false;
 
-    this.columns = [ 
+    this.columns = [ // tablas con columnas dinamicas
       {
         property: "id",
         label: "#"
