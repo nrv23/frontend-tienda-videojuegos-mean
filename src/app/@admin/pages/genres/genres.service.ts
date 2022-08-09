@@ -1,5 +1,4 @@
 import { IBlockGenreResult, IUpdateGenreResult } from './../../../interface/ResponseGenre';
-import { IGenre } from './../../../interface/IGenre';
 import { ADD_GENRE } from './../../../@graphql/operations/mutation/genre';
 import { ApiService } from './../../../@graphql/services/api.service';
 import { Apollo } from 'apollo-angular';
@@ -8,6 +7,7 @@ import { IGenreResult } from 'src/app/interface/ResponseGenre';
 import { map } from 'rxjs/internal/operators/map';
 import { UPDATE_GENRE } from 'src/app/@graphql/operations/mutation/updateGenre';
 import { BLOCK_USER } from 'src/app/@graphql/operations/mutation/blockGenre';
+import { Genre } from 'src/app/models/genre.mode';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class GenresService extends ApiService{
       .pipe(map(response => response as IGenreResult))
   }
 
-  updateGenre(genre: IGenre) {
+  updateGenre(genre: Genre) {
     return this.mutation(UPDATE_GENRE,{genre},{})
     .pipe(map(response => response as IUpdateGenreResult))
   }

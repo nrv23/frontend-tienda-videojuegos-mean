@@ -1,7 +1,8 @@
 import { IGenre } from './../../../interface/IGenre';
+import { Genre } from './../../../models/genre.mode';
 import { basicAlert } from 'src/app/@shared/alerts/toast';
 import { GenresService } from './genres.service';
-import { basicFormDialog, infoDetailsBasic } from './../../../@shared/alerts/alerts';
+import { basicFormDialog, optionsWithDetails } from './../../../@shared/alerts/alerts';
 import { ITableColumns } from './../../../interface/table-columns.interface';
 import { GENRES } from './../../../@graphql/operations/query/genre';
 import { IResultData } from './../../../interface/ResultInfo';
@@ -58,7 +59,7 @@ export class GenresComponent implements OnInit {
 
     let defaultValue = "";
     let [action, data] = event; // desctructuring de arrays
-
+    console.log({data})
     if(data.name) {
       defaultValue = data.name as string;
     }
@@ -87,33 +88,46 @@ export class GenresComponent implements OnInit {
 
       if(!genre) return;
 
-      let { id,name,slug } = data as IGenre;      
+      let { id,name,slug } = data as Genre;      
       name = genre;
 
       this.updateGenre({ id,name,slug });
 
     } else if (String(action) === 'info') {
 
-      infoDetailsBasic('Detalles de Género',`${data.name} (${data.slug})`)
-      return;
+      const response = await optionsWithDetails('Detalles de Género',`${data.name} (${data.slug})`,"info")
+
+      if(response === true) {
+      
+        const { value: genre }: SweetAlertResult<string> = await basicFormDialog(
+          'Actualizar género',
+          html,
+          'name'
+        );
+  
+        if(!genre) return;
+  
+        let { id,name,slug } = data as Genre;      
+        name = genre;
+  
+        this.updateGenre({ id,name,slug });
+      } else if(response === false) {
+        this.blockGenre(data.id,!data.active ? true: !data.active)
+      }
 
     } else {
       // opcion de bloquear
-      let resp = data as IGenre; 
-      const activeUpdated : boolean = !resp.active? true: !resp.active;
+      data = data as IGenre; 
       
-      const newGenre = {
-        id: resp.id,
-        name: resp.name,
-        slug: resp.slug,
-        active: activeUpdated
-      };
+      const activeUpdated : boolean = !data.active? true: !data.active;
 
-      data.active = activeUpdated
+      const response = await optionsWithDetails('Si bloqueas el género no se va mostrar en alista',`${data.name} (${data.slug})`,"block")
 
-      data = newGenre;
-
-      //this.blockGenre(Number(data.id), activeUpdated );
+      if(!response) {
+        this.blockGenre(data.id,!data.active ? true: !data.active)
+      }
+      
+     
     }
   }
 
@@ -138,7 +152,7 @@ export class GenresComponent implements OnInit {
     );
   }
 
-  private updateGenre(genre: IGenre) {
+  private updateGenre(genre: Genre) {
     this.genreService.updateGenre(genre).subscribe(
       (response) => {
         const {

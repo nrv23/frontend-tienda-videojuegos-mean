@@ -1,3 +1,4 @@
+import { Genre } from '../models/genre.mode';
 import { IResponse } from './Response';
 export interface IGenre {
     id: string;
@@ -7,5 +8,5 @@ export interface IGenre {
 }
 
 export interface ResponseGenre extends IResponse {
-    genre: IGenre[];
+    genre: Genre[];
 }

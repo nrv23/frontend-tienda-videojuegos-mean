@@ -23,13 +23,18 @@ export const basicFormDialog = async (
         return;
     },
   });
-
- 
 };
 
-export const infoDetailsBasic = (title: string, html: string) => {
+export const optionsWithDetails =  (title: string, html: string,tipo: string) => {
 
-    Swal.fire({
+
+    return new Promise((resolve,reject) => {
+
+      let obj= {}
+
+    if(tipo=== "info"){
+      
+      obj = {
         title,
         text: html,
         showCancelButton: true,
@@ -37,14 +42,31 @@ export const infoDetailsBasic = (title: string, html: string) => {
         cancelButtonColor: '#d33',
         confirmButtonText: '<i class="fa-solid fa-pen-to-square"></i> Editar',
         cancelButtonText: '<i class="fa-solid fa-lock"></i> Bloquear'
-    })
+      }
+    }else {
+
+      obj = {
+        title,
+        text: html,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '<i class="fa-solid fa-ban"></i> Cancelar',
+        cancelButtonText: '<i class="fa-solid fa-lock"></i> Bloquear' 
+      }
+    }
+
+
+    Swal.fire(obj)
     .then(result => {
 
-        if(result.value) { // editar registro
-
+        if(result.value) {   // editar registro
+          return resolve(true);
         } else if(result.dismiss.toString() === "cancel") { // bloquear registro
-
-        } 
+          return resolve(false);
+        }
+      
+     })
     })
       
 }
