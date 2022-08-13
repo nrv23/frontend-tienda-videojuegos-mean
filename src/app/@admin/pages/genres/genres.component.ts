@@ -118,16 +118,12 @@ export class GenresComponent implements OnInit {
     } else {
       // opcion de bloquear
       data = data as IGenre; 
-      
       const activeUpdated : boolean = !data.active? true: !data.active;
-
       const response = await optionsWithDetails('Si bloqueas el género no se va mostrar en alista',`${data.name} (${data.slug})`,"block")
 
       if(!response) {
         this.blockGenre(data.id,!data.active ? true: !data.active)
       }
-      
-     
     }
   }
 

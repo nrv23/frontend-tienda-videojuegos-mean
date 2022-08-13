@@ -36,8 +36,9 @@ export const optionsWithDetails =  (title: string, html: string,tipo: string) =>
       
       obj = {
         title,
-        text: html,
+        html,
         showCancelButton: true,
+        showCloseButton:true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: '<i class="fa-solid fa-pen-to-square"></i> Editar',
@@ -47,8 +48,9 @@ export const optionsWithDetails =  (title: string, html: string,tipo: string) =>
 
       obj = {
         title,
-        text: html,
+        html,
         showCancelButton: true,
+        showCloseButton:true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: '<i class="fa-solid fa-ban"></i> Cancelar',

@@ -4,6 +4,7 @@ import { IResultData } from './../../../interface/ResultInfo';
 import { DocumentNode } from '@apollo/client';
 import { Component, OnInit } from '@angular/core';
 import { ITableColumns } from 'src/app/interface/table-columns.interface';
+import { optionsWithDetails } from 'src/app/@shared/alerts/alerts';
 
 @Component({
   selector: 'app-users',
@@ -54,6 +55,39 @@ export class UsersComponent implements OnInit {
         label: "Role del Usuario"
       }
     ]
+  }
+
+  takeAction(event: any){
+
+    const [action, user] = event;
+    let html = "";
+    
+
+    switch(action) {
+
+      case 'add':
+
+      break;
+
+      case 'edit':
+
+      break;
+      
+      case 'info':
+        html = `<input id="name" value="${user.lastName}" class="swal2-input" required>`
+        optionsWithDetails('Información del usuario',`${user.name} ${user.lastName}<br/>
+        <i class="fas fa-envelope-open-text"></i>&nbsp;&nbsp;${user.email}`,'info');
+
+      break;
+
+      case 'block':
+
+      break;
+
+      default:
+        break;
+
+    }
   }
 
 }
