@@ -1,11 +1,21 @@
+import { EMAIL_PATTERN } from '@admin/core/constants/regex';
 import  Swal  from 'sweetalert2';
+
+const swalWithBasicOptions = (title: string, html: string) =>  
+  Swal.mixin({
+    title,
+    html,
+    cancelButtonText: "Cancelar",
+    focusConfirm: true,
+    showCancelButton: true  
+  })
 
 export const basicFormDialog = async (
   title: string,
   html: string,
   property: string
 ) => {
-  return await Swal.fire({
+  return await swalWithBasicOptions(title, html).fire({
     title,
     html,
     focusConfirm: true,
@@ -21,6 +31,64 @@ export const basicFormDialog = async (
         }
         Swal.showValidationMessage("El nombre del género no puede estar vacío");
         return;
+    },
+  });
+};
+
+
+
+
+export const useFormBasicFormDialog = async (
+  title: string,
+  html: string
+) => {
+  return await swalWithBasicOptions(title, html).fire({
+    title,
+    html,
+    focusConfirm: true,
+    cancelButtonText: "Cancelar",
+    showCancelButton: true,
+    preConfirm: () => {
+
+      let error = "";
+      
+      const name = (document.getElementById('name') as HTMLInputElement).value;
+      const lastName = (document.getElementById('lastName') as HTMLInputElement).value;
+      const email = (document.getElementById('email') as HTMLInputElement).value;
+      const role = (document.getElementById('role') as HTMLInputElement).value;
+
+      if(!name) {
+
+          error+= "El nombre del usuario es requerido. <br/>";
+      }
+
+      if(!lastName) {
+
+        error+= "Los apellidos del usuario son requeridos. <br/>";
+      }
+
+
+      if(!email || EMAIL_PATTERN.test(email)) {
+
+        error+= "Debe ingresar un email válido. <br/>";
+      }
+
+      if(error.length > 0) {
+
+        Swal.showValidationMessage(error);
+        return;
+      }
+
+      return {
+        name,
+        lastName,
+        email,
+        role,
+        password: "1234",
+        active: false,
+        birthDate: new Date().toISOString(),
+        confirm_password: '1234'
+      }
     },
   });
 };

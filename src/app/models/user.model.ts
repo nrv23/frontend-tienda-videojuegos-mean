@@ -8,9 +8,10 @@ export class User {
     public confirm_password:string;
     public role?:string = "CLIENT";
     public birthDate? :string;
+    public active? :boolean = false;
 
 
-    constructor( name: string, lastName: string, email: string, password: string, role?:string, birthDate?: string,confirm_password?: string,id: number = null  ) {
+    constructor( name: string, lastName: string, email: string, password: string, role?:string, birthDate?: string,confirm_password?: string,id: number = null, active: boolean = false  ) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -20,5 +21,6 @@ export class User {
         this.email = email;
         this.birthDate = birthDate;
         this.confirm_password = confirm_password;
+        this.active = active;
     }
 }
