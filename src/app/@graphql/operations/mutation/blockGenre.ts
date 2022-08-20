@@ -1,6 +1,6 @@
 import { gql } from 'apollo-angular';
 
-export const BLOCK_USER = gql`
+export const BLOCK_GENRE = gql`
   mutation BlockGenre($id: ID!, $active: Boolean!) {
     blockGenre(id: $id, active: $active) {
       status

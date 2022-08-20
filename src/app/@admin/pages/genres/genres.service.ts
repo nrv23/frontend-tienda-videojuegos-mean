@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { IGenreResult } from 'src/app/interface/ResponseGenre';
 import { map } from 'rxjs/internal/operators/map';
 import { UPDATE_GENRE } from 'src/app/@graphql/operations/mutation/updateGenre';
-import { BLOCK_USER } from 'src/app/@graphql/operations/mutation/blockGenre';
+import { BLOCK_GENRE } from 'src/app/@graphql/operations/mutation/blockGenre';
 import { Genre } from 'src/app/models/genre.mode';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class GenresService extends ApiService{
   blockGenre(id: number, active: boolean) {
     //return this.mutation
 
-    return this.mutation(BLOCK_USER,{id,active},{})
+    return this.mutation(BLOCK_GENRE,{id,active},{})
       .pipe(map(response => response as IBlockGenreResult))
   }
 }

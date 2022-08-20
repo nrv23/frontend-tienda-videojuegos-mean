@@ -1,3 +1,6 @@
+import { BLOCK_USER } from './../../../@graphql/operations/mutation/blockUser';
+import { IBlockUserResponse } from './../../../interface/IBlockUserResponse';
+import { UPDATE_USER } from './../../../@graphql/operations/mutation/updateUser';
 import { IUsersResponse } from './../../../interface/UsersResponse';
 import { USERS } from './../../../@graphql/operations/query/users';
 import { IMe } from '../../../interface/MeResponse';
@@ -14,6 +17,7 @@ import { REGISTER } from 'src/app/@graphql/operations/mutation/register';
 import { AuthHelper } from 'src/app/utils/auth';
 import { Subject } from 'rxjs';
 import { IRegisterResponse } from 'src/app/interface/RegisterResponse';
+import { IUserUpdateResponse } from 'src/app/interface/IUserUpdateResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -110,5 +114,30 @@ export class UserService extends ApiService{
     resetSession() {
       this.helper.removeToken();
       this.updateSession(this.meData)
+    }
+
+    updateUser(user: User) {
+
+      if(typeof user.role === 'undefined' &&  user.role === null){
+        delete user?.role;
+      }
+
+      delete user.confirm_password;
+
+      return this.mutation(UPDATE_USER,{user,include: false},{ 
+        headers: new HttpHeaders()
+        .set("Authorization", this.helper.getToken()) })
+        .pipe(map(response => response as IUserUpdateResponse
+        )
+      )
+    }
+
+    blockUser(id:number, active: boolean) {
+      return this.mutation(BLOCK_USER,{id,active},{ 
+        headers: new HttpHeaders()
+        .set("Authorization", this.helper.getToken()) })
+        .pipe(map(response => response as IBlockUserResponse
+        )
+      )
     }
 }
