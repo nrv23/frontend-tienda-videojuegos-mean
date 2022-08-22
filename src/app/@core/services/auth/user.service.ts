@@ -1,3 +1,7 @@
+import { IResetPasswordResponse } from './../../../interface/IResetPasswordResponse';
+import { RESET_PASSWORD } from './../../../@graphql/operations/mutation/resetPassword';
+import { IForgotPasswordResponse } from './../../../interface/IForgotPasswordResponse';
+import { IActiveUserResponse } from './../../../interface/IActiveUserResponse';
 import { BLOCK_USER } from './../../../@graphql/operations/mutation/blockUser';
 import { IBlockUserResponse } from './../../../interface/IBlockUserResponse';
 import { UPDATE_USER } from './../../../@graphql/operations/mutation/updateUser';
@@ -18,6 +22,8 @@ import { AuthHelper } from 'src/app/utils/auth';
 import { Subject } from 'rxjs';
 import { IRegisterResponse } from 'src/app/interface/RegisterResponse';
 import { IUserUpdateResponse } from 'src/app/interface/IUserUpdateResponse';
+import { ACTIVE_USER } from 'src/app/@graphql/operations/mutation/activeUser';
+import { RESET_PASSWORD_EMAIL } from 'src/app/@graphql/operations/mutation/resetPasswordEmail';
 
 @Injectable({
   providedIn: 'root'
@@ -139,5 +145,39 @@ export class UserService extends ApiService{
         .pipe(map(response => response as IBlockUserResponse
         )
       )
+    }
+
+    activeUser(birthDate: string, password: string,token: string) {
+
+      const { user: { id } } = this.helper.decodeToken(token);
+      
+      return this.mutation(ACTIVE_USER,{id,birthDate,password}, {
+        headers: new HttpHeaders()
+        .set("Authorization", token)
+      }) 
+      .pipe(map(response => response as IActiveUserResponse))
+    }
+
+    resetPassword() {
+
+    }
+
+    resetPasswordEmail(email: string) {
+
+      return this.mutation(RESET_PASSWORD_EMAIL,{email}) 
+      .pipe(map(response => response as IForgotPasswordResponse))
+    }
+
+    changePassword(token: string, password: string ) {
+
+      const { user: { id } } = this.helper.decodeToken(token);
+
+      return this.mutation(RESET_PASSWORD,{id,password},{
+        headers: new HttpHeaders()
+        .set("Authorization", token)
+      })
+      .pipe(map(
+        response => response as IResetPasswordResponse
+      ))
     }
 }

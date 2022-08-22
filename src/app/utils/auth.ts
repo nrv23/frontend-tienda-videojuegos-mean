@@ -25,8 +25,8 @@ export class AuthHelper {
         localStorage.removeItem("token");
     }
 
-    decodeToken() {
+    decodeToken(token?: string) {
 
-        return this.jwtHelper.decodeToken(this.getToken());
+        return this.jwtHelper.decodeToken(!token? this.getToken(): token);
     }
 }

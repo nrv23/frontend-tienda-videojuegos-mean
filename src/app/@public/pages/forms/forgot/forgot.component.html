@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg"></div>
+      <div class="col-lg-6">
+        <form (ngSubmit)="sendEmail($event)" #forma="ngForm">
+          <h2>Añade tu correo electrónico</h2>
+          <p>
+            Te enviaremos un enlace a tu correo electrónico para resetear tu
+            contraseña y cambiarlo
+          </p>
+          <hr />
+          <div class="row">
+            <div class="col-lg">
+              <label for="mail">Correo electrónico</label>
+              <input
+                    type="email"
+                    #email="ngModel" 
+                    [(ngModel)]="emailValue" 
+                    placeholder="Introduzca el correo electrónico" 
+                    name="email"
+                    class="form-control"
+                    pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+                    required 
+                    [ngClass]="{'is-valid':!email.invalid,'is-invalid':email.invalid}" 
+              />
+
+              <div *ngIf="(email.invalid && (email.dirty || email.touched)) || email.errors?.required || email.errors?.pattern"
+                    class=" alert alert-danger mt-2">
+                    Correo inválido
+                </div>
+
+                <div class="row">
+                    <div class="col-lg">
+                        <button type="submit" class="signup-btn" [disabled]="!forma.valid">Generar solicitud</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg"></div>
+    </div>
+  </div>

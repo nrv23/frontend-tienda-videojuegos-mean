@@ -15,10 +15,21 @@ const routes: Routes = [
       {
         path: "register",
         loadChildren: async () => await (await import("./forms/register/register.module")).RegisterModule // cargar rutas con lazy loading
+      },{
+        path: "active/:token", // va leer el valor del token que viene por url
+        loadChildren: async () => await (await import("./forms/active/active.module")).ActiveModule // cargar rutas con lazy loading
       },
       {
         path: "contact",
         loadChildren: async () => await (await import("./contact/contact.module")).ContactModule // cargar rutas con lazy loading
+      },
+      {
+        path: "forgot",
+        loadChildren: async () => await (await import("./forms/forgot/forgot.module")).ForgotModule // cargar rutas con lazy loading
+      },
+      {
+        path: "reset/:token",
+        loadChildren: async () => await (await import("./forms/change-password/change-password.module")).ChangePasswordModule // cargar rutas con lazy loading
       },
       {
         path: "",
