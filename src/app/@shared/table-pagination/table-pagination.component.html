@@ -3,10 +3,22 @@
 
     usar el pipe async para poder mostrar informacion de un observable en html
 -->
+
 <button class="btn btn-success mb-1" (click)="manageOption('add', '')">
   <i class="fa-solid fa-square-plus"></i>
   Añadir
 </button>
+
+<select
+  class="form-select"
+  style="width: auto"
+  [(ngModel)]="filterActiveValues"
+  (ngModelChange)="loadData()"
+>
+  <option [ngValue]="'ACTIVE'" >Activos</option>
+  <option [ngValue]="'INACTIVE'">Inactivos</option>
+  <option [ngValue]="'ALL'">Todos</option>
+</select>
 
 <div class="table-responsive">
   <table class="table table-striped">
@@ -20,24 +32,51 @@
       <!--  columns es el valor que lee de forma dinamica el numero de columnas y nombres de campos para reutilizar un mismo componente de tabla -->
       <tr *ngFor="let user of data$ | async">
         <td *ngFor="let item of columns">
-          {{ user[item.property] }}
+          <span *ngIf="item.property != 'active'; else activeValue "> 
+            {{ user[item.property] }}
+
+          </span>
+          <ng-template #activeValue>
+            <span class="fa-solid fa-circle-check" *ngIf="user[item.property] == true || user[item.property] === null"></span>
+            <span class="fa-solid fa-circle-xmark" *ngIf="user[item.property] == false"></span>
+          </ng-template>
         </td>
         <td>
-          <button type="button" class="btn btn-secondary mx-1"
+          <button
+            type="button"
+            class="btn btn-secondary mx-1"
             (click)="manageOption('edit', user)"
           >
             <i class="fa-solid fa-pen-to-square"></i>
           </button>
-          <button type="button" class="btn btn-primary mx-1"
+          <button
+            type="button"
+            class="btn btn-primary mx-1"
             (click)="manageOption('info', user)"
           >
             <i class="fa-solid fa-list"></i>
           </button>
-          <button type="button" class="btn btn-danger mx-1"
+
+
+
+          <button
+            type="button"
+            class="btn btn-danger mx-1 lock"
             (click)="manageOption('block', user)"
+            *ngIf="user['active'] == true || user['active'] === null"
           >
-            <i class="fa-solid fa-lock"></i>
+            <span class="fa-solid fa-lock"></span>
           </button>
+
+
+          <button
+          type="button"
+          class="btn btn-danger mx-1 unlock"
+          (click)="manageOption('block', user)"
+          *ngIf="user['active'] == false"
+        >
+          <span class="fa-solid fa-lock-open"></span>
+        </button>
         </td>
       </tr>
     </tbody>

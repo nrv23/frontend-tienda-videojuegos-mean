@@ -6,16 +6,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
-  constructor(private user: UserService) { }
-
-  ngOnInit(): void {
-
-    this.user.getUsers(1,1)
-      .subscribe(response => {
-        console.log(response.users)
-      })
-    
-  }
+  constructor() { }
 }

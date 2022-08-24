@@ -2,7 +2,7 @@ import { basicAlert } from 'src/app/@shared/alerts/toast';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/@core/services/auth/user.service';
 import { Component, OnInit } from '@angular/core';
-
+// estudiar lo de la certificacion ISO
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',

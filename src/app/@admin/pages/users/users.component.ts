@@ -1,3 +1,4 @@
+import { STATE_VALUES_FILTER } from './../../../@core/constants/filters';
 import { SweetAlertResult } from 'sweetalert2';
 import { useFormBasicFormDialog, basicFormDialog } from './../../../@shared/alerts/alerts';
 import { UserService } from './../../../@core/services/auth/user.service';
@@ -30,6 +31,7 @@ export class UsersComponent implements OnInit {
   include: boolean ;
 
   columns: ITableColumns[];
+  filterActiveValues: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE;
 
   ngOnInit(): void {
 
@@ -62,6 +64,10 @@ export class UsersComponent implements OnInit {
       {
         property: "role",
         label: "Role del Usuario"
+      },
+      {
+        property: 'active',
+        label: "Activo"
       }
     ]
   }

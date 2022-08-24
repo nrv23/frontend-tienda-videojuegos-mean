@@ -6,6 +6,7 @@ import { DocumentNode } from '@apollo/client';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { map } from 'rxjs/internal/operators/map';
 import { Observable } from 'rxjs';
+import { STATE_VALUES_FILTER } from 'src/app/@core/constants/filters';
 
 
 @Component({
@@ -22,13 +23,14 @@ export class TablePaginationComponent implements OnInit {
   @Input() include: boolean = true;
   @Input() resultData: IResultData;
   @Input() columns: ITableColumns[];
-
+ //
 
   infoPage: ResultInfo;
   data$: Observable<any>; // se va trabajar paginando muchos tipos de datos
 
   // output para enviar los datos a cada padre
 
+  @Input() filterActiveValues: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE;
   @Output() manageItem = new EventEmitter<Array<any>>(); // esto va enviar datos de muchos tipos
 
   constructor(private tablePaginationService: TablePaginationService) {
@@ -39,7 +41,8 @@ export class TablePaginationComponent implements OnInit {
     const variables =  {
       page: this.infoPage.page,
       items: this.infoPage.itemsPage,
-      include: this.include
+      include: this.include,
+      active: this.filterActiveValues
     }
 
     console.log({variables});
@@ -47,7 +50,8 @@ export class TablePaginationComponent implements OnInit {
     this.data$ = this.tablePaginationService.getCollectionData(this.query,variables,this.context)
       .pipe(
         map((response: any) => {
-          
+
+          console.log({response})
 
           const data = response[this.resultData.definitionKey];
           this.infoPage = {

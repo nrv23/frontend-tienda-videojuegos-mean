@@ -97,8 +97,8 @@ export class UserService extends ApiService{
         )
     }
 
-    getUsers(page: number = 1, items:number = 20) {
-      return this.query(USERS,{include:true,page,items})
+    getUsers(page: number = 1, items:number = 20, active: string) {
+      return this.query(USERS,{include:true,page,items,active})
         .pipe(map(
           result => result as IUsersResponse
         ))    

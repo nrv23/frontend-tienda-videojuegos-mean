@@ -1,8 +1,11 @@
+
+<!-- Campos de tipo input en el componente table-pagination para recibir los datos del padre user.componente-->
 <app-table-pagination
   [query]="query"
   [context]="context"
   [itemsPage]="itemsPage"
   [resultData]="resultData"
+  [filterActiveValues]="filterActiveValues"
   [include]="include"
   [columns]="columns"
   (manageItem)="takeAction($event)"
