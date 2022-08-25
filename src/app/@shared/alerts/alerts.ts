@@ -93,7 +93,7 @@ export const useFormBasicFormDialog = async (
   });
 };
 
-export const optionsWithDetails =  (title: string, html: string,tipo: string) => {
+export const optionsWithDetails =  (title: string, html: string,tipo: string, active?: boolean) => {
 
 
     return new Promise((resolve,reject) => {
@@ -101,16 +101,17 @@ export const optionsWithDetails =  (title: string, html: string,tipo: string) =>
       let obj= {}
 
     if(tipo=== "info"){
-      
+
+      console.log({active})
       obj = {
         title,
         html,
         showCancelButton: true,
         showCloseButton:true,
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        cancelButtonColor: active === null || Boolean(active) === true? '#d33': '#28a745',
         confirmButtonText: '<i class="fa-solid fa-pen-to-square"></i> Editar',
-        cancelButtonText: '<i class="fa-solid fa-lock"></i> Bloquear'
+        cancelButtonText: active === null || Boolean(active) === true? '<i class="fa-solid fa-lock"></i> Bloquear': '<i class="fa-solid fa-lock-open"></i> Desbloquear'
       }
     }else {
 

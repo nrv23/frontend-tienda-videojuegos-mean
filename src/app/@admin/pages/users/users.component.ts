@@ -113,11 +113,10 @@ export class UsersComponent implements OnInit {
       break;
       
       case 'info':
-
         html = `<input id="name" value="${user.lastName}" class="swal2-input" required>`;
         
         const response = await optionsWithDetails('Información del usuario',`${user.name} ${user.lastName}<br/>
-        <i class="fas fa-envelope-open-text"></i>&nbsp;&nbsp;${user.email}`,'info');
+        <i class="fas fa-envelope-open-text"></i>&nbsp;&nbsp;${user.email}`,'info',user.active);
 
         if(response === true) {
         
@@ -144,7 +143,9 @@ export class UsersComponent implements OnInit {
         const value = await optionsWithDetails('Si bloqueas el usuario no se va mostrar en alista',`${user.name} ${user.lastName}`,"block")
 
         if(!value) {
-          this.blockUser(user.id,typeof user.active === "undefined" || user.active === null ? true: !user.active)
+          const newActive: boolean = typeof user.active === "undefined" || user.active === null ? false: !user.active;
+          user.active = newActive;
+          this.blockUser(user.id,newActive)
         }
 
       break;
@@ -228,6 +229,7 @@ export class UsersComponent implements OnInit {
   }
 
   private async blockUser(id: number, active:boolean) {
+    console.log({active});
     this.user.blockUser(id,active).subscribe(
       (response) => {
         const {
@@ -237,7 +239,12 @@ export class UsersComponent implements OnInit {
         if (!status) {
           basicAlert('warning', 'Bloquear usuario', message, 'Ok', true);
         } else {
-          basicAlert('success', 'Bloquear usuario', message, 'Ok', true);
+          if(active === null || active == true) {
+            basicAlert('success', 'Bloquear usuario', "Usuario desbloqueado con éxito", 'Ok', true);
+           
+          } else {
+            basicAlert('success', 'Bloquear usuario', "Usuaroo bloqueado con éxito", 'Ok', true);
+          }
         }
       },
       (err: Error) => {
