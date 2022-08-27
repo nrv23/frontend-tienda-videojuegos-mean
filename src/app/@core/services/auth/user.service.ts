@@ -1,3 +1,4 @@
+import { IActiveUserEmail } from './../../../interface/IActiveUserEmail';
 import { IResetPasswordResponse } from './../../../interface/IResetPasswordResponse';
 import { RESET_PASSWORD } from './../../../@graphql/operations/mutation/resetPassword';
 import { IForgotPasswordResponse } from './../../../interface/IForgotPasswordResponse';
@@ -24,6 +25,7 @@ import { IRegisterResponse } from 'src/app/interface/RegisterResponse';
 import { IUserUpdateResponse } from 'src/app/interface/IUserUpdateResponse';
 import { ACTIVE_USER } from 'src/app/@graphql/operations/mutation/activeUser';
 import { RESET_PASSWORD_EMAIL } from 'src/app/@graphql/operations/mutation/resetPasswordEmail';
+import { ACTIVE_USER_EMAIL } from 'src/app/@graphql/operations/mutation/activeUserEmail';
 
 @Injectable({
   providedIn: 'root'
@@ -109,7 +111,7 @@ export class UserService extends ApiService{
       delete user.confirm_password;
       delete user.role;
    
-      return this.mutation(REGISTER,{user})
+      return this.mutation(REGISTER,{user,include: false})
       .pipe(
         map(
           response => response as IRegisterResponse
@@ -178,6 +180,17 @@ export class UserService extends ApiService{
       })
       .pipe(map(
         response => response as IResetPasswordResponse
+      ))
+    }
+
+    activeUserEmail(id: number, email: string) {
+
+      return this.mutation(ACTIVE_USER_EMAIL,{id,email},{
+        headers: new HttpHeaders()
+        .set("Authorization", this.helper.getToken())
+      })
+      .pipe(map(
+        response => response as IActiveUserEmail
       ))
     }
 }

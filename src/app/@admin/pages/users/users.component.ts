@@ -201,6 +201,19 @@ export class UsersComponent implements OnInit {
           basicAlert('warning', 'Agregar usuario', message, 'Ok', true);
         } else {
           basicAlert('success', 'Agregar usuario', message, 'Ok', true);
+
+          this.user.activeUserEmail(response.register.users[0].id, response.register.users[0].email)
+            .subscribe(response => {
+              const { activeUserEmail: {  status, message  } } = response;
+
+              if (!status) {
+                basicAlert('warning', 'Activar usuario', message, 'Ok', true);
+              } else {
+                basicAlert('success', 'Activar usuario', message, 'Ok', true);
+              }
+            }, (err: Error) => {
+              basicAlert('error', 'Actualizar usuario', err.message, 'Ok', true);
+            })
         }
       },
       (err: Error) => {
