@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     //aquí enviar el formulario para el registro
-    
+    this.register.active = true;
     this.userService.register(this.register)
       .subscribe(response => {
         if(!response.register.status) {
