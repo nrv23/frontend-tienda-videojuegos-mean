@@ -4,14 +4,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-public',
   templateUrl: './public.component.html',
-  styleUrls: ['./public.component.scss']
+  styleUrls: ['./public.component.scss'],
 })
 export class PublicComponent implements OnInit {
-
-  constructor(private user: UserService) { }
+  constructor(private user: UserService) {}
 
   ngOnInit(): void {
     this.user.start();
   }
-
 }

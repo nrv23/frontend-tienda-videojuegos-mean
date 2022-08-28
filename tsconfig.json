@@ -4,7 +4,8 @@
     "baseUrl": "./",
     "paths": {
       "@shop/*":["src/app/@public/*"], //configurar variables para rutas relativas
-      "@admin/*":["src/app/@admin/*"] ////configurar variables para rutas relativas
+      "@admin/*":["src/app/@admin/*"], ////configurar variables para rutas relativas
+      "@data/*":["src/assets/@data/*"] ////configurar variables para rutas relativas
 
       //en este caso rutas base que se van a llamar en la aplicacion
     },
@@ -20,7 +21,9 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
