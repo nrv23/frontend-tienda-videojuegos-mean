@@ -1,1 +1,33 @@
+
+
+<!--
+     <ngb-carousel *ngIf="items.length > 0">
+    <ng-template ngbSlide *ngFor="let item of items" style="width: auto;">
+      <div class="picsum-img-wrapper texte-center">
+        <img [src]="item.background" [alt]="item.description">
+      </div>
+      <div class="carousel-caption">
+        <h3>{{item.titel}}</h3>
+        <p>{{item.description}}</p>
+      </div>
+    </ng-template>
+  </ngb-carousel> 
+-->
+
 <shop-carousel-items [items]="items"></shop-carousel-items>
+
+<app-product-category-list
+[title]="'Productos en oferta'"
+[productList]="listOne"
+>
+</app-product-category-list>
+
+
+<app-product-category-list
+[title]="'Productos de plataforma PC'"
+[productList]="listTow"
+>
+</app-product-category-list>
+
+
+
