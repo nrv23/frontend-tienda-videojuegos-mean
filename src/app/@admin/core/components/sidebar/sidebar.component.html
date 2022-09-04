@@ -9,22 +9,11 @@
   </div>
   <div class="list-group list-group-flush">
     <a
+    *ngFor="let item of menuItems"
       class="list-group-item list-group-item-action list-group-item-light p-3"
-      [routerLink]="['/admin']"
+      [routerLink]="item.url"
       routerLinkActive="router-link-active"
-      ><i class="fa-solid fa-chart-line"></i> Dashboard</a
-    >
-    <a
-      class="list-group-item list-group-item-action list-group-item-light p-3"
-      [routerLink]="['/admin/users']"
-      routerLinkActive="router-link-active"
-      ><i class="fa-solid fa-users"></i> Users</a
-    >
-    <a
-      class="list-group-item list-group-item-action list-group-item-light p-3"
-      [routerLink]="['/admin/genres']"
-      routerLinkActive="router-link-active"
-      ><i class="fas fa-atlas"></i> Genres</a
-    >
+      > <i [class]="item.icon"></i> {{item.label}}</a>
+
   </div>
 </div>

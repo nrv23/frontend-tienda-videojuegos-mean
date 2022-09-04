@@ -1,7 +1,9 @@
+
 import { UserService } from 'src/app/@core/services/auth/user.service';
 import { Component, OnInit } from '@angular/core';
 import { IMe } from 'src/app/interface/MeResponse';
-
+import menu from '@data/menus/shop.json';
+import { IMenu } from 'src/app/interface/IMenu';
 @Component({
   selector: 'app-public-navbar',
   templateUrl: './navbar.component.html',
@@ -14,9 +16,11 @@ export class NavbarComponent implements OnInit {
   access= false;
   role:string;
   name: string;
+  menuItems: IMenu[] = [];
 
   ngOnInit(): void {
 
+    this.menuItems = menu;
     this.user.accessVar$.subscribe(response => {
 
       const { me: {users:[{name,lastName,role}],status} } = response;

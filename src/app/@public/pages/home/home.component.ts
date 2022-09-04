@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
       );
 
     this.productService
-      .getProductsByPlatform('4', 1, 4, STATE_VALUES_FILTER.ACTIVE, true)
+      .getProductsByPlatform(['4'], 1, 4, STATE_VALUES_FILTER.ACTIVE, true)
       .subscribe(
         (response) => {
           const {

@@ -43,7 +43,7 @@ export class ProductsService extends ApiService {
   }
 
   getProductsByPlatform(
-    platformId: string,
+    platformId: string[],
     page: number = 1,
     items: number = 10,
     active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE,

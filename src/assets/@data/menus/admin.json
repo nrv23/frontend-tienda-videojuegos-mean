@@ -1,0 +1,16 @@
+[
+    {
+        "url": "/admin",
+        "label": "Dashboard",
+        "icon": "fa-solid fa-chart-line"
+    },{
+        "url": "/admin/users",
+        "label": "Usuarios",
+        "icon": "fa-solid fa-users"
+    },
+    {
+        "url": "/admin/genres",
+        "label": "Géneros",
+        "icon": "fas fa-atlas"
+    }
+]

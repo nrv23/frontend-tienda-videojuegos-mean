@@ -22,6 +22,9 @@ const routes: Routes = [
       {
         path: "contact",
         loadChildren: async () => await (await import("./contact/contact.module")).ContactModule // cargar rutas con lazy loading
+      },{
+        path: "games/:type/:filter",
+        loadChildren: async () => await (await import("./games/games.module")).GamesModule // cargar rutas con lazy loading
       },
       {
         path: "forgot",

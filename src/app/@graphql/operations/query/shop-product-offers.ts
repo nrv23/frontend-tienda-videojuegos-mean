@@ -1,3 +1,4 @@
+import { RESULT_INFO_FRAGMENT } from './../../fragment/result-info';
 import { SHOP_PRODUCT_FRAGMENT } from './../../fragment/shop-product';
 import { gql } from 'apollo-angular';
 
@@ -23,8 +24,12 @@ export const SHOP_LAST_UNITS_OFFERS = gql`
       shopProducts {
         ...ShopProductObject 
       }
+      info {
+        ...ResultInfoObject
+      }
     }
   }
 
   ${SHOP_PRODUCT_FRAGMENT}
+  ${RESULT_INFO_FRAGMENT}
 `;
