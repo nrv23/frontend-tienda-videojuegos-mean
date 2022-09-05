@@ -9,6 +9,7 @@ export const SHOP_PRODUCT_PLATFORMS = gql`
     $items: Int
     $active: ActiveFilterEnum
     $random: Boolean
+    $showPlatform: Boolean = true
   ) {
     showProductsPlatforms(
       platform_id: $platformId

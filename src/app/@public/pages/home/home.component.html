@@ -1,4 +1,5 @@
-<!--
+<div class="container-fluid" *ngIf="!loading">
+  <!--
 
 
      <ngb-carousel *ngIf="items.length > 0">
@@ -14,20 +15,17 @@
   </ngb-carousel> 
 -->
 
- <shop-carousel-items [items]="items"></shop-carousel-items>
+  <shop-carousel-items [items]="items"></shop-carousel-items>
 
-<app-product-category-list
-[title]="'Productos en oferta'"
-[productList]="listOne"
->
-</app-product-category-list>
+  <app-product-category-list
+    [title]="'Productos en oferta'"
+    [productList]="listOne"
+  >
+  </app-product-category-list>
 
-
-<app-product-category-list
-[title]="'Productos de plataforma PC'"
-[productList]="listTow"
->
-</app-product-category-list>
-
-
-
+  <app-product-category-list
+    [title]="'Productos de plataforma PC'"
+    [productList]="listTow"
+  >
+  </app-product-category-list>
+</div>

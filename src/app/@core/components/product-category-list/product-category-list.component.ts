@@ -10,6 +10,7 @@ export class ProductCategoryListComponent implements OnInit {
 
   @Input() title: string = 'Título de la categoría';
   @Input() productList: IProduct[] = [] ;
+  @Input() description?: string = "" ;
 
 
   constructor() { }

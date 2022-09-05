@@ -10,6 +10,7 @@ export const SHOP_LAST_UNITS_OFFERS = gql`
     $random: Boolean
     $lastUnits: Int
     $topPrice: Float!
+    $showPlatform: Boolean = false
   ) {
     showProductsOffers(
       page: $page

@@ -1,5 +1,6 @@
+import { HomeService } from './home.service';
 import { ShopProduct } from './../../../interface/ProductsOffers';
-import { ProductsService } from './../../../@core/services/products.service';
+//import { ProductsService } from './../../../@core/services/products.service';
 
 import { ICarouselItem } from './../../../interface/ICarouselItem';
 // import items from '@data/carousel.json';
@@ -7,6 +8,7 @@ import { ICarouselItem } from './../../../interface/ICarouselItem';
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { STATE_VALUES_FILTER } from 'src/app/@core/constants/filters';
+import { loadData,closeAlert } from 'src/app/@shared/alerts/alerts';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,14 +21,74 @@ export class HomeComponent implements OnInit {
   shopProductsPlatform: ShopProduct[];
   listOne : IProduct[] = [];
   listTow: IProduct[] = [];
+  loading: boolean = true;
   //listTree;
-  constructor(private productService: ProductsService) {}
+  constructor( private homeService: HomeService) {}
 
   ngOnInit() {
+    loadData('Cargando...','').then(response => {
+
+    this.homeService.getData()
+    .subscribe(response => {
+      this.loading = false;
+      if(response.carousel) {
+        closeAlert();
+        this.shopProducts = response.carousel.shopProducts;
+
+          this.shopProducts.map(product => {
+           this.items.push({
+            id: product.id,
+            title: product.product.name,
+            description: "",
+            background: product.product.img,
+            url: ""
+           });
+          });
+      } 
+
+      if( response.offers) {
+        this.shopProducts = response.offers.shopProducts;
+
+          this.shopProducts.map(product => {
+            this.listOne.push({
+              id: product.id,
+              img: product.product.img,
+              name: product.product.name,
+              rating: product.product.rating,
+              description: "",
+              qty: 1,
+              price: product.price,
+              stock: product.stock,
+            })
+          });
+      }
+
+      if( response.pc) {
+        this.shopProductsPlatform = response.pc.shopProducts;
+
+        this.shopProductsPlatform.map(product => {
+          this.listTow.push({
+            id: product.id,
+            img: product.product.img,
+            name: product.product.name,
+            rating: product.product.rating,
+            description: "",
+            qty: 1,
+            price: product.price,
+            stock: product.stock,
+          })
+        });
+      }
+    },(err: Error) => {
+      console.log(err.name)
+    })
+
+    })
+
     //this.productsList = products; // Traer los valores cargados en el products.json u otros
 
     //this.listTree = this.fakeRandomProductList();
-
+/*
     this.productService
       .getProductsOffers(1, 4, STATE_VALUES_FILTER.ACTIVE, true, -1, 40)
       .subscribe(
@@ -58,7 +120,7 @@ export class HomeComponent implements OnInit {
       );
 
     this.productService
-      .getProductsByPlatform(['4'], 1, 4, STATE_VALUES_FILTER.ACTIVE, true)
+      .getProductsByPlatform(['4'], 1, 4, STATE_VALUES_FILTER.ACTIVE, true,false)
       .subscribe(
         (response) => {
           const {
@@ -118,5 +180,7 @@ export class HomeComponent implements OnInit {
           console.log(err.message);
         }
       );
+      */
   }
+  
 }

@@ -1,3 +1,4 @@
+import { Info } from './ProductsPlatforms';
 export interface IProductsOffers {
     showProductsOffers: ShowProductsOffers;
 }
@@ -6,6 +7,7 @@ export interface ShowProductsOffers {
     message:      string;
     status:       boolean;
     shopProducts: ShopProduct[];
+    info: Info;
 }
 
 export interface ShopProduct {

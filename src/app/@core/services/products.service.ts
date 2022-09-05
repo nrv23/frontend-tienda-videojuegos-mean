@@ -31,11 +31,13 @@ export class ProductsService extends ApiService {
     active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE,
     random: boolean = false,
     lastUnits: number = -1,
-    topPrice: number = -1
+    topPrice: number = -1,
+    showPlatform: Boolean = false
+    
   ) {
     return this.query(
       SHOP_LAST_UNITS_OFFERS,
-      { page, items, active, random, lastUnits, topPrice },
+      { page, items, active, random, lastUnits, topPrice, showPlatform },
       {
         headers: new HttpHeaders().set('Authorization', this.helper.getToken()),
       }
@@ -47,9 +49,10 @@ export class ProductsService extends ApiService {
     page: number = 1,
     items: number = 10,
     active: STATE_VALUES_FILTER = STATE_VALUES_FILTER.ACTIVE,
-    random: boolean = true
+    random: boolean = true,
+    showPlatform: Boolean
   ) {
-    return this.query(SHOP_PRODUCT_PLATFORMS,{platformId,page,items,active,random},{
+    return this.query(SHOP_PRODUCT_PLATFORMS,{platformId,page,items,active,random,showPlatform},{
       headers: new HttpHeaders().set('Authorization', this.helper.getToken()),
     }).pipe(map((response) => response as IProductPlatforms));
   }

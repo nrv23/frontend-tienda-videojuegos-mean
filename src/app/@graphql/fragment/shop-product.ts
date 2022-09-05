@@ -1,3 +1,4 @@
+import { PLATFORM_FRAGMENT } from './platform';
 import { gql } from 'apollo-angular';
 
 export const SHOP_PRODUCT_FRAGMENT = gql`
@@ -11,7 +12,12 @@ export const SHOP_PRODUCT_FRAGMENT = gql`
         value
       }
     }
+    platform @include(if:$showPlatform) {
+      ...PlatformObject
+    }
     price
     stock
   }
+
+  ${PLATFORM_FRAGMENT}
 `;

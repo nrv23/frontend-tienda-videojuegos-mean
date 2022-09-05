@@ -1,3 +1,4 @@
+import { closeAlert, loadData as spinner } from './../alerts/alerts';
 import { ITableColumns } from './../../interface/table-columns.interface';
 import { ResultInfo, IResultData } from './../../interface/ResultInfo';
 import { USERS } from './../../@graphql/operations/query/users';
@@ -23,6 +24,7 @@ export class TablePaginationComponent implements OnInit {
   @Input() include: boolean = true;
   @Input() resultData: IResultData;
   @Input() columns: ITableColumns[];
+  loading: boolean;
  //
 
   infoPage: ResultInfo;
@@ -38,13 +40,17 @@ export class TablePaginationComponent implements OnInit {
   }
 
   loadData() {
+    this.loading = true;
+   spinner("Cargando...","").then(response => {
+
     const variables =  {
       page: this.infoPage.page,
       items: this.infoPage.itemsPage,
       include: this.include,
       active: this.filterActiveValues
     }
-
+    this.loading = false;
+    closeAlert();
     console.log({variables});
 
     this.data$ = this.tablePaginationService.getCollectionData(this.query,variables,this.context)
@@ -66,6 +72,7 @@ export class TablePaginationComponent implements OnInit {
           return data[this.resultData.listKey];
         })
       )
+   })
   }
 
   pageChange(event: Event) {
