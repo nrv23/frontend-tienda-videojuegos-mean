@@ -1,3 +1,6 @@
+import { ActivatedRoute } from '@angular/router';
+import { Platform } from './../../../../interface/ProductsOffers';
+import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 import { ProductsService } from './../../../../@core/services/products.service';
 import { Component, OnInit } from '@angular/core';
 import products from '@data/products.json';
@@ -10,21 +13,33 @@ import { CURRENCIES_SYMBOL,CURRENCY_LIST } from '@mugan86/ng-shop-ui';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productService: ProductsService, private router: ActivatedRoute) {}
 
-  product = products[Math.floor(Math.random() * products.length)];
-  selectedImage = this.product.img;
+  product: IProduct = {
+    id: "1",
+    img: "",
+    name: "",
+    rating: {
+      count: 1,
+      value: 1
+    },
+    description: "",
+    qty: 1,
+    stock: 1,
+    price: 1,
+    discount: 0,
+    priceDiscount: 1
+  };
+  selectedImage : string;
   currencySelected: string = CURRENCIES_SYMBOL[CURRENCY_LIST.US_DOLLAR];
-  screenShots: string[] = [
-    "https://media.rawg.io/media/games/b11/b115b2bc6a5957a917bc7601f4abdda2.jpg",
-    "https://media.rawg.io/media/screenshots/1b4/1b4eefb4cc2a77d4d35bb4a6926f3189.jpg",
-    "https://media.rawg.io/media/screenshots/a7c/a7c43871a54bed6573a6a429451564ef.jpg",
-    "https://media.rawg.io/media/screenshots/cf4/cf4367daf6a1e33684bf19adb02d16d6.jpg",
-    "https://media.rawg.io/media/screenshots/f95/f9518b1d99210c0cae21fc09e95b4e31.jpg",
-    "https://media.rawg.io/media/screenshots/2dc/2dc7ea94641f7329d177f228564b968a.jpg",
-  ]
-  ngOnInit(): void {
+  screenShots: string[] = [];
+  platforms = [];
 
+  ngOnInit(): void {
+    this.router.params.subscribe(response => {
+      this.changePlatformSearch(+response.id);
+      
+    })
   }
 
   changeValue(qty: number) {
@@ -33,5 +48,30 @@ export class DetailsComponent implements OnInit {
   }
   changeImage(url: string) {
     this.selectedImage = url;
+  }
+
+  changePlatformSearch(id:number | string) {
+    
+    this.productService.getShopProductsDetails(+id)
+      .subscribe(response => {
+        const { shopProductDetails: {
+          status, message, shopProducts
+        } } = response;
+        if(status) {
+          this.product.id = shopProducts[0].id;
+          this.product.img = shopProducts[0].product.img;
+          this.product.name = shopProducts[0].product.name;
+          this.product.rating = shopProducts[0].product.rating;
+          this.product.description = shopProducts[0].platform.name;
+          this.product.qty = 1
+          this.product.stock = shopProducts[0].stock;
+          this.product.price = shopProducts[0].price;
+
+          this.selectedImage =this.product.img;
+          this.screenShots = shopProducts[0].product.shortScreenshots;
+
+           this.platforms = shopProducts[0].relationalProducts;
+          }
+      })
   }
 }

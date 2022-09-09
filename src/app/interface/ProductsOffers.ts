@@ -19,13 +19,14 @@ export interface ShopProduct {
     active:     boolean;
     price:      number;
     stock:      number;
+    relationalProducts: ShopProduct[]
 }
 
 export interface Platform {
     id:     string;
     name:   string;
-    slug:   string;
-    active: boolean;
+    slug?:   string;
+    active?: boolean;
 }
 
 export interface Product {

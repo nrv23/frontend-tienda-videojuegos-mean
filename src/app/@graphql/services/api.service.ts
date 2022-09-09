@@ -12,7 +12,8 @@ export class ApiService {
   protected query(
     query: DocumentNode,
     variables: object = {},
-    context: object = {}
+    context: object = {},
+    cache: Boolean = true
   ) {
     // solo es visible para las clases hijas
     // que heredan este servicio
@@ -22,7 +23,7 @@ export class ApiService {
         query,
         variables,
         context,
-        fetchPolicy: 'network-only',
+        fetchPolicy: cache ? 'network-only': 'no-cache' ,
       })
       .valueChanges.pipe(
         map((result: ApolloQueryResult<unknown>) => result.data)

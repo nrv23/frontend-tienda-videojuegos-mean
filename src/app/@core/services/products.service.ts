@@ -1,3 +1,5 @@
+import { IShopProductDetails } from './../../interface/IShopProductsDetails';
+import { SHOP_PRODUCT_DETAILS } from './../../@graphql/operations/query/shop-products-details';
 import { IProductPlatforms } from './../../interface/ProductsPlatforms';
 import { AuthHelper } from 'src/app/utils/auth';
 import { SHOP_LAST_UNITS_OFFERS } from '../../@graphql/operations/query/shop-product-offers';
@@ -55,5 +57,13 @@ export class ProductsService extends ApiService {
     return this.query(SHOP_PRODUCT_PLATFORMS,{platformId,page,items,active,random,showPlatform},{
       headers: new HttpHeaders().set('Authorization', this.helper.getToken()),
     }).pipe(map((response) => response as IProductPlatforms));
+  }
+
+  getShopProductsDetails(id: number) {
+
+    return this.query(SHOP_PRODUCT_DETAILS,{id},{},false)
+    .pipe(
+      map(response => response as IShopProductDetails)
+    )
   }
 }

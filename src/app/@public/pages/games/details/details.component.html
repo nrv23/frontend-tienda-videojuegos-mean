@@ -15,7 +15,7 @@
     </div>
 
     <div class="col-md-4">
-      <h4 class="my-3">{{ product.name }} (PC)</h4>
+      <h4 class="my-3">{{ product.name }} ({{product.description}})</h4>
       <div class="row">
         <div class="col-lg-12">
           <shop-rating [rating]="product.rating"></shop-rating>
@@ -48,10 +48,9 @@
       </div>
       <br>
       <span class="h5">Plataformas:</span>&nbsp;
-      <select name="" id="">
-        <option value="">Ps4</option>
-        <option value="">Wii</option>
-        <option value="">Xbox</option>
+      <select name="" id="" (change)="changePlatformSearch($event.target.value)" >
+        <option [value]="product.id">{{product.description}}</option>
+        <option [value]="opt.id" *ngFor="let opt of platforms">{{opt.platform.name}}</option>
       </select>
     </div>
   </div>
