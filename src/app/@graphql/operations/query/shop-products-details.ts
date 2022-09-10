@@ -1,9 +1,10 @@
+import { SHOP_PRODUCT_FRAGMENT } from './../../fragment/shop-product';
 import { gql } from 'apollo-angular';
 
 
 export const SHOP_PRODUCT_DETAILS = gql`
 
-query ShowProductsOffersDetails($id: Int!) {
+query ShowProductsOffersDetails($id: Int!,$items: Int, $random: Boolean,$showPlatform: Boolean = true) {
   shopProductDetails(id: $id) {
     message
     status
@@ -36,6 +37,15 @@ query ShowProductsOffersDetails($id: Int!) {
       }
     }
   }
+  shopProductRandomItems:showProductsOffers(items: $items, random: $random) {
+      message
+      status
+      shopProducts {
+        ...ShopProductObject
+      }
+  }
 }
+
+${SHOP_PRODUCT_FRAGMENT}
 
 `

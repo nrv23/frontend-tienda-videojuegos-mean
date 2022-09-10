@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" *ngIf="!loading">
   <!-- Portfolio Item Row -->
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-1" id="screens-section">
       <!-- Va contener la lista de imagenes que se cargaran al darle click a alguna-->
       <img *ngFor="let screen of screenShots"
         class="img-fluid mini"
@@ -11,7 +11,7 @@
       />
     </div>
     <div class="col-md-7">
-      <img class="img-fluid" [src]="selectedImage" alt="" />
+      <img class="img-fluid main-img" [src]="selectedImage" alt="" />
     </div>
 
     <div class="col-md-4">
@@ -55,68 +55,21 @@
     </div>
   </div>
   <!-- /.row -->
-
+  <hr>
   <!-- Related Projects Row -->
-  <h3 class="my-4">Juegos relacionados con la plataforma</h3>
+  <h3 class="my-4">Juegos que te pueden interesar</h3>
 
   <div class="row">
-    <div class="col-md-2 col-sm-6 mb-4">
-      <a href="#">
+    <div class="col-md-2 col-sm-6 mb-4" *ngFor="let item of randmonItems">
+      <a [routerLink]="['/games/details',item.id]" title="{{item.name}} ({{item.description}})" >
         <img
-          class="img-fluid"
-          src="https://via.placeholder.com/500x300"
-          alt=""
+          (click)="changePlatformSearch(item.id)"
+          class="img-fluid more-games"
+          [src]="item.img"
+          [alt]="item.name"
         />
       </a>
     </div>
-
-    <div class="col-md-2 col-sm-6 mb-4">
-      <a href="#">
-        <img
-          class="img-fluid"
-          src="https://via.placeholder.com/500x300"
-          alt=""
-        />
-      </a>
-    </div>
-
-    <div class="col-md-2 col-sm-6 mb-4">
-      <a href="#">
-        <img
-          class="img-fluid"
-          src="https://via.placeholder.com/500x300"
-          alt=""
-        />
-      </a>
-    </div>
-
-    <div class="col-md-2 col-sm-6 mb-4">
-      <a href="#">
-        <img
-          class="img-fluid"
-          src="https://via.placeholder.com/500x300"
-          alt=""
-        />
-      </a>
-    </div>
-    <div class="col-md-2 col-sm-6 mb-4">
-      <a href="#">
-        <img
-          class="img-fluid"
-          src="https://via.placeholder.com/500x300"
-          alt=""
-        />
-      </a>
-    </div>
-    <div class="col-md-2 col-sm-6 mb-4">
-      <a href="#">
-        <img
-          class="img-fluid"
-          src="https://via.placeholder.com/500x300"
-          alt=""
-        />
-      </a>
-    </div>
-  </div>
   <!-- /.row -->
+</div>
 </div>

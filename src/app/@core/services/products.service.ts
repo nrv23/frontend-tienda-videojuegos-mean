@@ -1,3 +1,5 @@
+import { IShopProductRandomItems } from './../../interface/IShopProductRandmonItems';
+import { SHOP_PRODUCT_RANDOM_ITEMS } from './../../@graphql/operations/query/shop-product-randmon';
 import { IShopProductDetails } from './../../interface/IShopProductsDetails';
 import { SHOP_PRODUCT_DETAILS } from './../../@graphql/operations/query/shop-products-details';
 import { IProductPlatforms } from './../../interface/ProductsPlatforms';
@@ -58,12 +60,19 @@ export class ProductsService extends ApiService {
       headers: new HttpHeaders().set('Authorization', this.helper.getToken()),
     }).pipe(map((response) => response as IProductPlatforms));
   }
+  //$id: Int!,$items: Int, $random: Boolean,$showPlatform: Boolean = true
+  getShopProductsDetails(id: number,items: number, random: boolean, showPlatform: boolean = true) {
 
-  getShopProductsDetails(id: number) {
-
-    return this.query(SHOP_PRODUCT_DETAILS,{id},{},false)
+    return this.query(SHOP_PRODUCT_DETAILS,{id,items,random,showPlatform},{},false)
     .pipe(
       map(response => response as IShopProductDetails)
     )
+  }
+
+  getRandomItems(items: number, random: boolean,showPlatform: boolean = true) {
+    return this.query(SHOP_PRODUCT_RANDOM_ITEMS,{items, random, showPlatform})
+      .pipe(
+        map(response => response as IShopProductRandomItems)
+      )
   }
 }

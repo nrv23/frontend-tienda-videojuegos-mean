@@ -131,13 +131,13 @@ export const optionsWithDetails = (
   });
 };
 
-export const loadData = (title: string,html: string) => {
+export const loadData = (title: string,html: string, timer: number = 400) => {
 
 
   return Swal.fire({
     title,
     html,
-    timer: 400,
+    timer,
     didOpen: () => {
       Swal.showLoading();
   

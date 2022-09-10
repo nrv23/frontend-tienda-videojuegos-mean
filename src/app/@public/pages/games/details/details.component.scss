@@ -32,3 +32,20 @@
 .price span.discount-percentage {
     text-decoration: none;
 }
+.main-img,.more-games{
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    height: 100%;
+    width:100%;
+}
+
+.more-games{
+    max-height: 100px;
+}
+
+@media(max-width: 600px) {
+    #screens-section {
+        display: none;
+    }
+}
