@@ -1,3 +1,5 @@
+@import "../../../../../assets/styles/colors.scss";
+
 .container {
     margin-top: 25px;
 }
@@ -12,17 +14,17 @@
 .price {
     font-size: 22px;
     font-weight: 800;
-    color: #cc1c39;
+    color: $price-primary;
     text-align: left;
     margin-left: 5px;
     margin-bottom: 12px;
 }
 
 .price span {
-
+    
     font-size: 18px;
     font-weight: 400;
-    color: #999;
+    color: $price-discount;
     text-align: left;
     margin-left: 5px;
     margin-bottom: 12px;

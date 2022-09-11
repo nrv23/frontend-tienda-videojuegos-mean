@@ -1,3 +1,4 @@
+import { CartService } from './../../services/cart.service';
 
 import { UserService } from 'src/app/@core/services/auth/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,7 @@ import { IMenu } from 'src/app/interface/IMenu';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private user:UserService) { }
+  constructor(private user:UserService, private cartService: CartService) { }
   session: IMe;
   access= false;
   role:string;
@@ -42,6 +43,10 @@ export class NavbarComponent implements OnInit {
     this.role = "";
     this.name = "";
   
+  }
+
+  open() {
+    this.cartService.open();
   }
 
 }

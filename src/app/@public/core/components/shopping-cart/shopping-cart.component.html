@@ -1,0 +1,61 @@
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+  <h5>Carrito de Compra</h5>
+  <div class="card product" *ngIf="cart.products.length === 0">
+    No hay ningún producto en tu carrito. Añade tus juegos favoritos.
+  </div>
+
+  <div class="card product" *ngFor="let item of cart.products">
+    <div class="row">
+      <div class="col-lg-2">
+        <img [src]="item.img" [alt]="item.name" class="img-fluid mb-2" />
+        <button class="btn btn-sm btn-danger" (click)="deleteProduct(item)">
+          <i class="fa-solid fa-x"></i>
+        </button>
+      </div>
+      <div class="col-lg">
+        <div class="row">
+          <div class="col-lg-9">
+            <h6>{{ item.name }} ({{item.description}})</h6>
+            <shop-qty-selector
+              [qty]="item.qty"
+              [stock]="item.stock"
+              (updateValue)="changeValue($event, item)"
+            ></shop-qty-selector>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg">
+        {{ currencySelected }} {{ item.price }}
+
+        <div class="price" *ngIf="item.discount; else noDiscount">
+          {{ currencySelected }}{{ item.priceDiscount | number }} <br>
+          <span> {{ currencySelected }}{{ item.price | number }} </span>
+          <span class="discount-percentage"> ({{ item.discount }} %) </span>
+        </div>
+        <ng-template #noDiscount>
+          <div class="price">
+            {{ currencySelected }}{{ item.price | number }}
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="row product" *ngIf="cart.products.length > 0">
+      <div class="col-lg-5">
+        Subtotal: ({{cart.subtotal}})
+      </div>
+      <div class="col-lg">
+        Total a pagar: <span class="text-primary price-total" id="total" >{{currencySelected}} {{cart.total}}</span>
+      </div>
+  </div>
+  <!--  {{cart| json }}-->
+  <hr />
+  <div class="row" *ngIf="cart.products.length > 0">
+    <div class="col-lg text-center">
+        <button  (click)="clearCart()" class="btn btn-danger mx-2"><i class="fa-solid fa-trash"></i> Vaciar carrito</button>
+        <button (click)="processOrder()" class="btn btn-success"><i class="fa-solid fa-cart-shopping-fast"></i> Tramitar pedido</button>
+    </div>
+  </div>
+</div>
+<div id="overlay"></div>

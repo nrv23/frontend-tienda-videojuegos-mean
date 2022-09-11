@@ -1,3 +1,4 @@
+import { CartService } from './../../../@public/core/services/cart.service';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
@@ -14,19 +15,19 @@ export class ProductCategoryListComponent implements OnInit {
   @Input() description?: string = "" ;
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cartService: CartService) { }
 
   ngOnInit(): void {
   }
 
   addToCart($event: IProduct) {
     // Usar la información del producto pasado para llevarlo al carrito de compra
-    console.log($event);
+    $event!.discount = 20;
+    $event!.priceDiscount = $event.price - (+(($event.price * $event.discount  ) /100).toFixed(2)) ;
+   this.cartService.manageProduct($event)
   }
 
   showProductDetails($event: IProduct) {
-    console.log($event);
-
     this.router.navigate(["/games/details",+$event.id]);
   }
 

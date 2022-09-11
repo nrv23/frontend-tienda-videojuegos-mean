@@ -6,6 +6,7 @@ import { ProductsService } from './../../../../@core/services/products.service';
 import { Component, OnInit } from '@angular/core';
 import { CURRENCIES_SYMBOL, CURRENCY_LIST } from '@mugan86/ng-shop-ui';
 import { loadData } from 'src/app/@shared/alerts/alerts';
+import { CURRENCY_SELECTED } from 'src/app/@core/constants/config';
 
 @Component({
   selector: 'app-details',
@@ -34,7 +35,7 @@ export class DetailsComponent implements OnInit {
     priceDiscount: 1,
   };
   selectedImage: string;
-  currencySelected: string = CURRENCIES_SYMBOL[CURRENCY_LIST.US_DOLLAR];
+  currencySelected: string = CURRENCY_SELECTED;
   screenShots: string[] = [];
   platforms = [];
   randmonItems: IProduct[] = [];
