@@ -1,3 +1,5 @@
+import { ShoppingCartHelper } from './../../../../utils/shoppingCart';
+import { Router } from '@angular/router';
 import { IMe } from './../../../../interface/MeResponse';
 import { LoginForm } from '../../../../interface/LoginForm';
 import { Component, OnInit } from '@angular/core';
@@ -13,10 +15,11 @@ import { AuthHelper } from 'src/app/utils/auth';
 export class LoginComponent implements OnInit {
 
     
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
   
    }
   private helper: AuthHelper =  new AuthHelper();
+  private shoppingCartHelper: ShoppingCartHelper = new ShoppingCartHelper();
 
   loginForm: LoginForm = {
     email: "",
@@ -46,6 +49,13 @@ export class LoginComponent implements OnInit {
           this.helper.saveToken(token);
           this.userService.start();
           basicAlert("success", "Login", message, "Ok", true);
+          // preguntar si hay alguna ruta para redireccionar
+          const route = this.shoppingCartHelper.getRouteAfterLogin();
+          
+          this.router.navigate([route? route : "/"]);
+          this.shoppingCartHelper.deleteRouteAfterLogin();
+          
+          return;
         } else {
 
           basicAlert("warning", "Login", message, "OK", true);

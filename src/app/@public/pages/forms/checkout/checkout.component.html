@@ -1,0 +1,124 @@
+<div class="container my-5" >
+  <div class="row">
+    <div class="col-md-4 order-md-2 mb-4">
+      <app-checkout-resumen></app-checkout-resumen>
+
+      <!-- 
+
+               <form class="card p-2">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Promo code" />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-secondary">Redeem</button>
+          </div>
+        </div>
+      </form>
+        -->
+    </div>
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Información de pago</h4>
+      <hr />
+      <form class="needs-validation" novalidate="">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="firstName">Nombre</label><br />
+            <span>{{auth.name}} </span>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="lastName">Apellido(s)</label><br />
+            <span>{{auth.lastName}}</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="username">Usuario</label><br />
+          <span>nrv23</span>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">Correo</label><br />
+          <span>{{auth.email}}</span>
+        </div>
+
+        <div class="mb-3">
+          <label for="address">Dirección de entrega</label>
+          <textarea
+            name=""
+            id=""
+            cols="50"
+            rows="4"
+            class="form-control"
+            placeholder="1234 Main St"
+            id="address"
+            
+            required
+          >
+          </textarea>
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+
+   
+        <hr class="mb-4" />
+
+        <h4 class="mb-3">Información de la tarjeta</h4>
+
+  
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="cc-name">Nombre de tarjeta</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cc-name"
+              placeholder=""
+              required=""
+            />
+            <small class="text-muted">Full name as displayed on card</small>
+            <div class="invalid-feedback">Name on card is required</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="cc-number">Número de tarjeta</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cc-number"
+              placeholder=""
+              required=""
+            />
+            <div class="invalid-feedback">Credit card number is required</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 mb-3">
+            <label for="cc-expiration">Fecha de vencimiento</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cc-expiration"
+              placeholder=""
+              required=""
+            />
+            <div class="invalid-feedback">Expiration date required</div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="cc-cvv">Código de seguridad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cc-cvv"
+              placeholder=""
+              required=""
+            />
+            <div class="invalid-feedback">Security code required</div>
+          </div>
+        </div>
+        <hr class="mb-4" />
+        <button class="btn btn-primary btn-lg btn-block" type="submit">
+          Continue to checkout
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CURRENCY_SELECTED } from './../../../../@core/constants/config';
 import { ICart } from './../../../../interface/shopping-cart';
 import { CartService } from './../../services/cart.service';
@@ -11,7 +12,7 @@ import { IProduct } from '@mugan86/ng-shop-ui/lib/interfaces/product.interface';
 })
 export class ShoppingCartComponent implements OnInit {
   
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   cart: ICart;
   currencySelected: string = CURRENCY_SELECTED;
@@ -45,6 +46,7 @@ export class ShoppingCartComponent implements OnInit {
     this.cartService.manageProduct(item);
   }
   processOrder() {
-    
+    this.router.navigate(["/checkout"]);
+    this.closeNav();
   }
 }

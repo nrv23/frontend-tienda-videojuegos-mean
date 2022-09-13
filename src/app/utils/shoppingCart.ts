@@ -19,4 +19,14 @@ export class ShoppingCartHelper {
       products: [],
     };
   }
+  setRouteAfterLogin(route: string) {
+    localStorage.setItem("route_after_login",route);
+  }
+
+  getRouteAfterLogin() {
+    return localStorage.getItem("route_after_login") || '';
+  }
+  deleteRouteAfterLogin() {
+    localStorage.removeItem("route_after_login");
+  }
 }

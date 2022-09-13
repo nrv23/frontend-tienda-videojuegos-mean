@@ -52,6 +52,11 @@
         <option [value]="product.id">{{product.description}}</option>
         <option [value]="opt.id" *ngFor="let opt of platforms">{{opt.platform.name}}</option>
       </select>
+      <div class="row">
+        <div class="col">
+          <button (click)="addToCart()" class="btn btn-dark my-3"><i class="fa-solid fa-cart-plus"></i> añadir</button>
+        </div>
+      </div>
     </div>
   </div>
   <!-- /.row -->

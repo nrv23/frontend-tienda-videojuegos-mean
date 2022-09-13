@@ -22,8 +22,6 @@ export class ProductCategoryListComponent implements OnInit {
 
   addToCart($event: IProduct) {
     // Usar la información del producto pasado para llevarlo al carrito de compra
-    $event!.discount = 20;
-    $event!.priceDiscount = $event.price - (+(($event.price * $event.discount  ) /100).toFixed(2)) ;
    this.cartService.manageProduct($event)
   }
 
